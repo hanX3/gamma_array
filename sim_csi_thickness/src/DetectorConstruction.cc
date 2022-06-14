@@ -80,7 +80,7 @@ G4LogicalVolume *DetectorConstruction::GetGeArrayLog(G4String ge_array_name)
   ge_array_log = new G4LogicalVolume(solid_ge_array, mat_air, ge_array_name);
 
   //  color
-  G4VisAttributes  *p_vis_att = new G4VisAttributes(G4Colour(1.0, 1.0, 0.0, 0.3));
+  G4VisAttributes  *p_vis_att = new G4VisAttributes(G4Colour(1.0, 1.0, 0.0, 0.));
   p_vis_att->SetForceSolid(false);
   ge_array_log->SetVisAttributes(p_vis_att);
 
@@ -116,7 +116,7 @@ G4LogicalVolume *DetectorConstruction::GetCsIArrayLog(G4String csi_array_name)
   csi_array_log = new G4LogicalVolume(solid_csi_array, mat_vaccum, csi_array_name);
 
   //  color
-  G4VisAttributes  *p_vis_att = new G4VisAttributes(G4Colour(1.0, 1.0, 0.0, 0.1));
+  G4VisAttributes  *p_vis_att = new G4VisAttributes(G4Colour(1.0, 1.0, 0.0, 0.0));
   p_vis_att->SetForceSolid(false);
   csi_array_log->SetVisAttributes(p_vis_att);
 
@@ -237,6 +237,10 @@ G4VPhysicalVolume *DetectorConstruction::DefineVolumes()
   G4Box *solid_world = new G4Box("World", 0.5*WORLD_SIZE_X, 0.5*WORLD_SIZE_Y, 0.5*WORLD_SIZE_Z);
   G4LogicalVolume *logic_world = new G4LogicalVolume(solid_world, mat_air, "World");
   G4VPhysicalVolume *phys_world = new G4PVPlacement(0, G4ThreeVector(), logic_world, "World", 0, false, 0, check_overlaps);
+  //  color
+  G4VisAttributes  *p_vis_att = new G4VisAttributes(G4Colour(0., 0.3, 0.0, 0.));
+  p_vis_att->SetForceSolid(false);
+  logic_world->SetVisAttributes(p_vis_att);
 
   // Ge Array
   G4ThreeVector position_ge_array = G4ThreeVector(0, 0, 0);
@@ -258,6 +262,7 @@ G4VPhysicalVolume *DetectorConstruction::DefineVolumes()
   G4LogicalVolume *chamber_log = GetChamberLog("Chamber");
   new G4PVPlacement(0, position_chamber, chamber_log, "Chamber", chamber_vaccum_log, false, 0, check_overlaps);
 
+#ifdef CSIARRAY
   // CsI Array
   G4ThreeVector position_csi_array = G4ThreeVector(0, 0, 0);
   G4LogicalVolume *csi_array_log = GetCsIArrayLog("CsI_Array");
@@ -277,6 +282,7 @@ G4VPhysicalVolume *DetectorConstruction::DefineVolumes()
     G4ThreeVector position_si = G4ThreeVector(CSI_ARRAY_X[i], CSI_ARRAY_Y[i], SI_POS_DIS);
     new G4PVPlacement(0, position_si, si_log, "Si", csi_array_log, false, i, check_overlaps);
   }
+#endif
 
   // PCB
   G4ThreeVector position_pcb = G4ThreeVector(0, 0, PCB_POS_DIS);
@@ -292,9 +298,11 @@ G4VPhysicalVolume *DetectorConstruction::DefineVolumes()
   ge_log->SetSensitiveDetector(ge);
   sd_man->AddNewDetector(ge);
 
+#ifdef CSIARRAY
   CsISD *csi = new CsISD("CsISD", "CsIHitCollection");
   csi_log->SetSensitiveDetector(csi);
   sd_man->AddNewDetector(csi);
+#endif
 
   return phys_world;
 }

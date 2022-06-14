@@ -61,6 +61,7 @@ void EventAction::EndOfEventAction(const G4Event* event)
   ge_e = (*ge_hc)[0]->GetEdep();
   ge_e /= keV;
 
+#ifdef CSIARRAY
   // CsI
   G4int csi_idd = sdManager->GetCollectionID("CsISD/CsIHitCollection");
   auto csi_hce = event->GetHCofThisEvent();
@@ -74,6 +75,7 @@ void EventAction::EndOfEventAction(const G4Event* event)
     
     csi_hit_num++;
   }
+#endif
 
   root_IO->FillTree(ge_e, csi_hit_num, csi_id, csi_e);
 	

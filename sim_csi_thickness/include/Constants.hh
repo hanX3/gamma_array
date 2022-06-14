@@ -4,6 +4,8 @@
 #include "globals.hh"
 #include "G4SystemOfUnits.hh"
 
+#define CSIARRAY
+
 //
 constexpr G4double WORLD_SIZE_X = 2. * m;
 constexpr G4double WORLD_SIZE_Y = 2. * m;
@@ -26,7 +28,7 @@ constexpr G4double TARGET_CSI_DIS     = 50. * mm; // distance to the face of CsI
 
 constexpr G4double CSI_SIZE_X         = 15. * mm;
 constexpr G4double CSI_SIZE_Y         = 15. * mm;
-constexpr G4double CSI_THICKNESS      = 2. * mm;
+constexpr G4double CSI_THICKNESS      = 5. * mm;
 constexpr G4double MYLAR_SIZE_X       = 15. * mm;
 constexpr G4double MYLAR_SIZE_Y       = 15. * mm;
 constexpr G4double MYLAR_THICKNESS    = 2. * um;
