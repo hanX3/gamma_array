@@ -1,0 +1,12 @@
+/run/initialize
+/tracking/verbose 0
+
+/gun/energy 40 keV 
+/run/beamOn 1000000
+
+/gun/energy 60 keV 
+/run/beamOn 1000000
+
+/gun/energy 80 keV 
+/run/beamOn 1000000
+
