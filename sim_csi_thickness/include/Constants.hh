@@ -6,6 +6,8 @@
 
 #define CSIARRAY
 
+#define DATAPATH "../data"
+
 //
 constexpr G4double WORLD_SIZE_X = 2. * m;
 constexpr G4double WORLD_SIZE_Y = 2. * m;

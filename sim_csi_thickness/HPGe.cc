@@ -21,7 +21,7 @@ int main(int argc,char** argv)
 {
   //  creat file
   G4int saveFlag = 1;
-  mkdir("../../data", 0777);
+  mkdir(DATAPATH, 0777);
 
   // Detect interactive mode (if no arguments) and define UI session
   //

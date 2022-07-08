@@ -40,7 +40,8 @@ void RootIO::Open()
     G4cout << "\n----> Tree file is opened in " << file_name << G4endl;
 
     std::stringstream ss;
-		ss << "../../data/" << file_name << ".root";
+    ss.str("");
+    ss << DATAPATH << "/" << file_name << ".root";
 
     file_in = new TFile(ss.str().c_str(), "RECREATE");
     //  check file_in
@@ -62,7 +63,9 @@ void RootIO::Open()
 		}
 		
     std::ofstream fo;
-    fo.open("../../data/cata.dat", std::ofstream::app);
+    ss.str("");
+    ss << DATAPATH << "/cata.dat";
+    fo.open(ss.str().c_str(), std::ofstream::app);
     fo << file_name << "  ";
     fo.close();
 

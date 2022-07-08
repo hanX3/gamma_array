@@ -52,8 +52,11 @@ void RunAction::EndOfRunAction(const G4Run *run)
   G4cout << "number of event " << run->GetNumberOfEvent() << G4endl;
   G4cout << "particle energy " << pri_gen->GetParticleGun()->GetParticleEnergy() << G4endl;
 
+  std::stringstream ss;
+  ss.str("");
+  ss << DATAPATH << "/cata.dat";
   std::ofstream fo;
-  fo.open("../../data/cata.dat", std::ofstream::app);
+  fo.open(ss.str().c_str(), std::ofstream::app);
   fo << pri_gen->GetParticleGun()->GetParticleEnergy() << " " << run->GetNumberOfEvent() << endl;
   fo.close();
 

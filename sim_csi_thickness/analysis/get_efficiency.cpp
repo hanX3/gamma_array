@@ -3,10 +3,10 @@ void get_efficiency(int thick)
 {
   TString str_fi_path;
   if(thick==0){
-    str_fi_path = TString::Format("../sim_csi_thickness/build/data/");
+    str_fi_path = TString::Format("./build/data/");
   }
   else{
-    str_fi_path = TString::Format("../sim_csi_thickness/build_%dmm/data/", thick);
+    str_fi_path = TString::Format("./build_%dmm/data/", thick);
   }
 
   stringstream ss;
