@@ -30,6 +30,10 @@ EventAction::EventAction(RootIO *io)
   csi_hit_num = 0;
   memset(csi_id, 0, sizeof(csi_id));
   memset(csi_e, 0, sizeof(csi_e));
+
+  si_hit_num = 0;
+  memset(si_id, 0, sizeof(si_id));
+  memset(si_e, 0, sizeof(si_e));
 #endif
 
 #ifdef SIPINARRAY
@@ -53,6 +57,10 @@ void EventAction::BeginOfEventAction(const G4Event*)
   csi_hit_num = 0;
   memset(csi_id, 0, sizeof(csi_id));
   memset(csi_e, 0, sizeof(csi_e));
+
+  si_hit_num = 0;
+  memset(si_id, 0, sizeof(si_id));
+  memset(si_e, 0, sizeof(si_e));
 #endif
 
 #ifdef SIPINARRAY
@@ -70,6 +78,10 @@ void EventAction::EndOfEventAction(const G4Event* event)
   csi_hit_num = 0;
   memset(csi_id, 0, sizeof(csi_id));
   memset(csi_e, 0, sizeof(csi_e));
+
+  si_hit_num = 0;
+  memset(si_id, 0, sizeof(si_id));
+  memset(si_e, 0, sizeof(si_e));
 #endif
 
 #ifdef SIPINARRAY
@@ -101,7 +113,23 @@ void EventAction::EndOfEventAction(const G4Event* event)
     csi_hit_num++;
   }
 
-  root_IO->FillTree(ge_e, csi_hit_num, csi_id, csi_e);
+  // Si PIN
+  G4int si_idd = sdManager->GetCollectionID("SiSD/SiHitCollection");
+  auto si_hce = event->GetHCofThisEvent();
+  auto si_hc = static_cast<SiHitsCollection*>(si_hce->GetHC(si_idd));
+  for(int i=0;i<N_OF_SI_PIN_DETECTOR;i++){
+    if((*si_hc)[i]->GetEdep()==0)  continue;
+
+    si_id[si_hit_num] = i;
+    si_e[si_hit_num] = (*si_hc)[i]->GetEdep();
+    si_e[si_hit_num] /= keV;
+    
+    si_hit_num++;
+  }
+
+  if(ge_e>0 || csi_hit_num>0 || si_hit_num>0){
+    root_IO->FillTree(ge_e, csi_hit_num, csi_id, csi_e, si_hit_num, si_id, si_e);
+  }
 #endif
 
 #ifdef SIPINARRAY
@@ -119,7 +147,9 @@ void EventAction::EndOfEventAction(const G4Event* event)
     si_hit_num++;
   }
 
-  root_IO->FillTree(ge_e, si_hit_num, si_id, si_e);
+  if(ge_e>0 || si_hit_num>0){
+    root_IO->FillTree(ge_e, si_hit_num, si_id, si_e);
+  }
 #endif
 
 
@@ -131,6 +161,10 @@ void EventAction::EndOfEventAction(const G4Event* event)
 #ifdef CSIARRAY
     for(int i=0;i<csi_hit_num;i++){
       G4cout << "csi " << csi_id[i] << "  energy " << csi_e[i] << G4endl;
+    }
+
+    for(int i=0;i<si_hit_num;i++){
+      G4cout << "si " << si_id[i] << "  energy " << si_e[i] << G4endl;
     }
 #endif
 

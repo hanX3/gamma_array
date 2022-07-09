@@ -7,6 +7,8 @@
 // #define CSIARRAY
 #define SIPINARRAY
 
+#define DATAPATH "../data_pd"  // no "/"
+
 //
 constexpr G4double WORLD_SIZE_X = 2. * m;
 constexpr G4double WORLD_SIZE_Y = 2. * m;
@@ -45,24 +47,27 @@ constexpr G4int    N_OF_CSI_DETECTOR  = 25;
 constexpr G4double CSI_ARRAY_X[N_OF_CSI_DETECTOR] = {-40., -20., 0., 20., 40., -40., -20., 0., 20., 40., -40., -20., 0., 20., 40., -40., -20., 0., 20., 40., -40., -20., 0., 20., 40.};
 constexpr G4double CSI_ARRAY_Y[N_OF_CSI_DETECTOR] = {-40., -40., -40., -40., -40., -20., -20., -20., -20., -20., 0., 0., 0., 0., 0., 20., 20., 20., 20., 20., 40., 40., 40., 40., 40.};
 
+//SI PIN
+constexpr G4double SI_PIN_ARRAY_R         = 100.* mm; // Si PIN Array R
+constexpr G4double TARGET_SI_PIN_DIS      = 50. * mm; // distance to the face of Si PIN detector
+
+constexpr G4double SI_PIN_SIZE_X          = 10. * mm;
+constexpr G4double SI_PIN_SIZE_Y          = 10. * mm;
+constexpr G4double SI_PIN_THICKNESS       = 0.3 * mm;
+
+constexpr G4double SI_PIN_POS_DIS         = TARGET_SI_PIN_DIS + SI_PIN_THICKNESS/2.;
+
+constexpr G4int    N_OF_SI_PIN_DETECTOR  = 25;
+constexpr G4double SI_PIN_ARRAY_X[N_OF_SI_PIN_DETECTOR] = {-40., -20., 0., 20., 40., -40., -20., 0., 20., 40., -40., -20., 0., 20., 40., -40., -20., 0., 20., 40., -40., -20., 0., 20., 40.};
+constexpr G4double SI_PIN_ARRAY_Y[N_OF_SI_PIN_DETECTOR] = {-40., -40., -40., -40., -40., -20., -20., -20., -20., -20., 0., 0., 0., 0., 0., 20., 20., 20., 20., 20., 40., 40., 40., 40., 40.};
+
 // PCB
 constexpr G4double PCB_SIZE_X         = 100. * mm;
 constexpr G4double PCB_SIZE_Y         = 100. * mm;
 constexpr G4double PCB_THICKNESS      = 2. * mm;
 
-constexpr G4double PCB_POS_DIS        = TARGET_CSI_DIS + MYLAR_THICKNESS + CSI_THICKNESS + SI_THICKNESS + PCB_THICKNESS/2.;
-
-//SI PIN
-constexpr G4double SI_PIN_ARRAY_R         = 100.* mm; // Si PIN Array R
-constexpr G4double SI_PIN_SIZE_X          = 10. * mm;
-constexpr G4double SI_PIN_SIZE_Y          = 10. * mm;
-constexpr G4double SI_PIN_THICKNESS       = 0.3 * mm;
-
-constexpr G4double SI_PIN_POS_DIS         = TARGET_CSI_DIS + MYLAR_THICKNESS + CSI_THICKNESS + SI_THICKNESS/2.;
-
-constexpr G4int    N_OF_SI_PIN_DETECTOR  = 25;
-constexpr G4double SI_PIN_ARRAY_X[N_OF_SI_PIN_DETECTOR] = {-40., -20., 0., 20., 40., -40., -20., 0., 20., 40., -40., -20., 0., 20., 40., -40., -20., 0., 20., 40., -40., -20., 0., 20., 40.};
-constexpr G4double SI_PIN_ARRAY_Y[N_OF_SI_PIN_DETECTOR] = {-40., -40., -40., -40., -40., -20., -20., -20., -20., -20., 0., 0., 0., 0., 0., 20., 20., 20., 20., 20., 40., 40., 40., 40., 40.};
+constexpr G4double PCB_POS_DIS_CSI_ARRAY           = TARGET_CSI_DIS + MYLAR_THICKNESS + CSI_THICKNESS + SI_THICKNESS + PCB_THICKNESS/2.;
+constexpr G4double PCB_POS_DIS_SI_PIN_ARRAY        = TARGET_SI_PIN_DIS + SI_PIN_THICKNESS + PCB_THICKNESS/2.;
 
 // Chamber
 constexpr G4double CHAMBER_R_MIN      = 98. * mm;

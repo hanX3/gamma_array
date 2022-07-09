@@ -40,7 +40,8 @@ void RootIO::Open()
     G4cout << "\n----> Tree file is opened in " << file_name << G4endl;
 
     std::stringstream ss;
-		ss << "../data/" << file_name << ".root";
+    ss.str("");
+		ss << DATAPATH << "/" << file_name << ".root";
 
     file_in = new TFile(ss.str().c_str(), "RECREATE");
     //  check file_in
@@ -56,6 +57,10 @@ void RootIO::Open()
     tr->Branch("csi_hit_num", &csi_hit_num, "csi_hit_num/I");
     tr->Branch("csi_id", csi_id, "csi_id[csi_hit_num]/I");
     tr->Branch("csi_e", csi_e, "csi_e[csi_hit_num]/D");
+
+    tr->Branch("si_hit_num", &si_hit_num, "si_hit_num/I");
+    tr->Branch("si_id", si_id, "si_id[si_hit_num]/I");
+    tr->Branch("si_e", si_e, "si_e[si_hit_num]/D");
 #endif
 
 #ifdef SIPINARRAY
@@ -70,7 +75,9 @@ void RootIO::Open()
 		}
 		
     std::ofstream fo;
-    fo.open("../../data/cata.dat", std::ofstream::app);
+    ss.str("");
+    ss << DATAPATH << "/cata.dat";
+    fo.open(ss.str().c_str(), std::ofstream::app);
     fo << file_name << "  ";
     fo.close();
 
@@ -79,28 +86,42 @@ void RootIO::Open()
 }
 
 //
+#ifdef CSIARRAY
+void RootIO::FillTree(G4double ee, G4int n1, G4int *id1, G4double *e1, G4int n2, G4int *id2, G4double *e2)
+{
+  ge_e = ee;
+
+  csi_hit_num = n1;
+  for(int i=0;i<n1;i++){
+    csi_id[i] = id1[i];
+    csi_e[i] = e1[i];
+  }
+
+  si_hit_num = n2;
+  for(int i=0;i<n2;i++){
+    si_id[i] = id2[i];
+    si_e[i] = e2[i];
+  }
+
+	tr->Fill();
+}
+#endif
+
+//
+#ifdef SIPINARRAY
 void RootIO::FillTree(G4double ee, G4int n, G4int *id, G4double *e)
 {
   ge_e = ee;
 
-#ifdef CSIARRAY
-  csi_hit_num = n;
-  for(int i=0;i<n;i++){
-    csi_id[i] = id[i];
-    csi_e[i] = e[i];
-  }
-#endif
-
-#ifdef SIPINARRAY
   si_hit_num = n;
   for(int i=0;i<n;i++){
     si_id[i] = id[i];
     si_e[i] = e[i];
   }
-#endif
 
-	tr->Fill();
+  tr->Fill();
 }
+#endif
 
 //
 void RootIO::Close()

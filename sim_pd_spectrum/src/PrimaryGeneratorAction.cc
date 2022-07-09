@@ -46,7 +46,7 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event *an_event)
 
   x =  CLHEP::RandFlat::shoot(-0.3,0.3);
   y =  CLHEP::RandFlat::shoot(-0.3,0.3);
-  z =  0.8;
+  z =  0.3;
 
   condizione = std::sqrt(x*x + y*y + z*z);
   x = x/condizione;

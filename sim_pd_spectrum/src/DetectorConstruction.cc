@@ -319,7 +319,7 @@ G4VPhysicalVolume *DetectorConstruction::DefineVolumes()
   }
 
   // PCB
-  G4ThreeVector position_pcb = G4ThreeVector(0, 0, PCB_POS_DIS);
+  G4ThreeVector position_pcb = G4ThreeVector(0, 0, PCB_POS_DIS_CSI_ARRAY);
   G4LogicalVolume *pcb_log = GetPCBLog("PCB");
   new G4PVPlacement(0, position_pcb, pcb_log, "PCB", csi_array_log, false, 0, check_overlaps);
 #endif
@@ -337,12 +337,10 @@ G4VPhysicalVolume *DetectorConstruction::DefineVolumes()
   }
 
   // PCB
-  G4ThreeVector position_pcb = G4ThreeVector(0, 0, PCB_POS_DIS);
+  G4ThreeVector position_pcb = G4ThreeVector(0, 0, PCB_POS_DIS_SI_PIN_ARRAY);
   G4LogicalVolume *pcb_log = GetPCBLog("PCB");
   new G4PVPlacement(0, position_pcb, pcb_log, "PCB", si_pin_array_log, false, 0, check_overlaps);
 #endif
-
-  
 
   // Sensitive detectors
   G4SDManager *sd_man = G4SDManager::GetSDMpointer();
@@ -355,6 +353,10 @@ G4VPhysicalVolume *DetectorConstruction::DefineVolumes()
   CsISD *csi = new CsISD("CsISD", "CsIHitCollection");
   csi_log->SetSensitiveDetector(csi);
   sd_man->AddNewDetector(csi);
+
+  SiSD *si = new SiSD("SiSD", "SiHitCollection");
+  si_log->SetSensitiveDetector(si);
+  sd_man->AddNewDetector(si);
 #endif
 
 #ifdef SIPINARRAY

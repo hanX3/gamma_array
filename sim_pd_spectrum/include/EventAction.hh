@@ -25,6 +25,10 @@ private:
   G4int csi_hit_num;
   G4int csi_id[N_OF_CSI_DETECTOR];
   G4double csi_e[N_OF_CSI_DETECTOR];
+
+  G4int si_hit_num;
+  G4int si_id[N_OF_CSI_DETECTOR];
+  G4double si_e[N_OF_CSI_DETECTOR];
 #endif
 
 #ifdef SIPINARRAY
