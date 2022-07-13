@@ -1,9 +1,0 @@
-/run/initialize
-/tracking/verbose 0
-
-
-/gps/particle ion
-/gps/ion 27 60 0 0
-/gps/pos/centre 0 0 0 mm
-
-/run/beamOn 10000
