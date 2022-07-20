@@ -1,0 +1,8 @@
+/run/initialize
+/control/verbose 2
+/tracking/verbose 2
+
+/Mode Source
+/Source/LevelScheme o15.lvl
+
+/run/beamOn 1000000

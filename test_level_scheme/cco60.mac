@@ -1,0 +1,10 @@
+/run/initialize
+/control/verbose 2
+/tracking/verbose 2
+
+/grdm/setPhotoEvaporationFile 28 60 UserEvapData_z28.a60
+
+/Mode Source
+/Source/LevelScheme cco60.lvl
+
+/run/beamOn 10

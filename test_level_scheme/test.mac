@@ -1,0 +1,10 @@
+#/Mode Source
+#/Source/LevelScheme co60.lvl
+
+/run/initialize
+/tracking/verbose 0
+
+/Mode Source
+/Source/LevelScheme co60.lvl
+
+/run/beamOn 1000000
