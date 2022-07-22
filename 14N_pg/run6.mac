@@ -1,0 +1,11 @@
+/run/initialize
+/control/verbose 2
+/tracking/verbose 2
+
+/grdm/setPhotoEvaporationFile 8 15 hanX_z8.a15
+
+/gun/particle ion
+
+#
+/gun/ion 8 15 0 5.1804e+03
+/run/beamOn 500000
